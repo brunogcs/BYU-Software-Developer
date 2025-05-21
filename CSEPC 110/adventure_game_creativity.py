@@ -1,3 +1,12 @@
+"""
+Author's Comment: I shared this game with my family and they but asked for more visual feedback at the end. 
+Their feedback inspired me to color-code “good” endings in green and “alternative” endings in red using Colorama.
+OBS: You need to run 'pip install colorama' first and make sure to run on a terminal that supports ANSI colors.
+"""
+
+from colorama import init, Fore
+init(autoreset=True)
+
 print("Welcome to Butterflies and Dogs, the text RPG history game that will blow your mind.")
 print("The game gives you choices and consequences, so choose wisely.")
 print("The game will provide you with two or three options, and depending on what you choose, you can win or lose the game.")
@@ -151,36 +160,36 @@ def part4(story_part1, story_part2, story_part3):
     if story_part1 == "ENTER THE FOREST":
         if story_part2 == "FOLLOW THE SOUND OF A BUBBLING BROOK":
             if story_part3 == "SIT BY THE BROOK":
-                print("You wake up from your dream, realizing it was just a fantasy. However, you feel inspired to explore the world beyond your home.")
+                print(Fore.RED + "You wake up from your dream, realizing it was just a fantasy. However, you feel inspired to explore the world beyond your home.")
             elif story_part3 == "LOOK FOR FISH OR OTHER WILDLIFE":
-                print("Your wish for adventure leads you to discover a hidden realm filled with magical creatures. You become their protector.")
+                print(Fore.GREEN + "Your wish for adventure leads you to discover a hidden realm filled with magical creatures. You become their protector.")
             elif story_part3 == "FOLLOW THE BROOK UPSTREAM":
-                print("The treasure you found grants you the ability to communicate with animals, and you become a legendary figure in the forest.")
+                print(Fore.GREEN + "The treasure you found grants you the ability to communicate with animals, and you become a legendary figure in the forest.")
 
         elif story_part2 == "INVESTIGATE A STRANGE GLOWING LIGHT":
             if story_part3 == "APPROACH THE LIGHT SLOWLY":
-                print("The fairy guides you to a secret garden where you find eternal happiness and friendship.")
+                print(Fore.GREEN + "The fairy guides you to a secret garden where you find eternal happiness and friendship.")
             elif story_part3 == "CALL OUT TO SEE IF ANYONE ELSE IS NEARBY":
-                print("The celebration with the forest creatures becomes a yearly festival, and you are honored as their guest of honor.")
+                print(Fore.GREEN + "The celebration with the forest creatures becomes a yearly festival, and you are honored as their guest of honor.")
             elif story_part3 == "DECIDE TO TURN BACK":
-                print("You return home, but the memory of the light stays with you, inspiring you to seek magic in everyday life.")
+                print(Fore.RED + "You return home, but the memory of the light stays with you, inspiring you to seek magic in everyday life.")
 
     elif story_part1 == "TURN BACK AND HEAD HOME":
         if story_part2 == "CONFRONT THE SHADOWY FIGURE":
             if story_part3 == "ASK THE FIGURE WHO IT IS AND WHAT IT WANTS":
-                print("The guardian grants you a quest to protect the forest, and you become a hero in your own right.")
+                print(Fore.GREEN + "The guardian grants you a quest to protect the forest, and you become a hero in your own right.")
             elif story_part3 == "PREPARE TO DEFEND YOURSELF":
-                print("The spirit teaches you the ways of magic, and you become a powerful sorcerer.")
+                print(Fore.GREEN + "The spirit teaches you the ways of magic, and you become a powerful sorcerer.")
             elif story_part3 == "TRY TO COMMUNICATE PEACEFULLY":
-                print("You form a bond with the guardian, and together you restore balance to the forest.")
+                print(Fore.GREEN + "You form a bond with the guardian, and together you restore balance to the forest.")
 
         elif story_part2 == "QUICKEN YOUR PACE AND IGNORE IT":
             if story_part3 == "LOOK BACK TO SEE IF THE FIGURE IS FOLLOWING YOU":
-                print("You realize that facing your fears is the first step to overcoming them, and you become more courageous in life.")
+                print(Fore.RED + "You realize that facing your fears is the first step to overcoming them, and you become more courageous in life.")
             elif story_part3 == "FIND A NEARBY ROAD OR PATH":
-                print("You find a new path that leads to unexpected adventures, and you become a traveler of the world.")
+                print(Fore.GREEN + "You find a new path that leads to unexpected adventures, and you become a traveler of the world.")
             elif story_part3 == "SEEK SHELTER IN A NEARBY BUILDING":
-                print("The stories you hear inspire you to write your own tales, and you become a famous storyteller.")
+                print(Fore.GREEN + "The stories you hear inspire you to write your own tales, and you become a famous storyteller.")
 
 def main():
     story_part1 = part1()
