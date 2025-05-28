@@ -70,41 +70,48 @@ If the guess has a different number of letters than the secret word, it still co
 
 Welcome to the word guessing game!
 
-Your hint is: _ _ _ _ _ _ 
-What is your guess? nephi
-Sorry, the guess must have the same number of letters as the secret word.
 
-What is your guess? a
-Sorry, the guess must have the same number of letters as the secret word.
-
-What is your guess? helaman
-Sorry, the guess must have the same number of letters as the secret word.
-
-What is your guess? abcdefghijklmnopqrstuvwxyz
-Sorry, the guess must have the same number of letters as the secret word.
 
 What is your guess? temple
 Your hint is: _ _ m _ _ _ 
 What is your guess? mosiah
-Congratulations! You guessed it!
-It took you 6 guesses.
+
 
 '''
+number_try = 0
 
-secret_word = 'nefi'
+#Select the secret word
+secret_word = 'nefi'.upper()
 len_secret_word = len(secret_word)
-len_Hint = (" _" * len_secret_word).strip()
+hint = (" _" * len_secret_word).strip()  # Inicializa o hint com sublinhados e espaços
 
-print(f"Your hint is: {len_Hint}")
-user_guess = input("What is your guess?")
+#Ask for the first guess
+print(f"Your hint is: {hint}")
+user_guess = input("What is your guess? ").upper()
 len_user_guess = len(user_guess)
+number_try = number_try + 1
 
-#compare len of hint and len of guess
-while len_user_guess != len_secret_word:
-    print("Sorry, the guess must have the same number of letters as the secret word.")
-    user_guess = input("What is your guess?")
+#Loop until the user get it right
+while user_guess != secret_word:
+    # Comparar o comprimento do hint e do palpite
+    while len_user_guess != len_secret_word:
+        print("Sorry, the guess must have the same number of letters as the secret word.")
+        user_guess = input("What is your guess? ")
+        len_user_guess = len(user_guess)
+
+    # Atualizar o hint com as letras corretas
+    for i, letter in enumerate(secret_word):
+        if letter == user_guess[i]:
+            hint = hint[:2 * i] + letter + hint[2 * i + 1:]
+    
+    #Apresenta de forma atualizada o hint e pede um novo palpite
+    print(f"Updated hint: {hint}")
+    user_guess = input("What is your guess? ").upper()
     len_user_guess = len(user_guess)
 
-for i, word in enumerate(secret_word):
-    if word == user_guess[i]:
-        print(f"{word} && {user_guess[i]}")
+    #Contabiliza a quantidade de tentativas
+    number_try = number_try + 1
+
+# Congratulation message
+print("Congratulations! You guessed it!")
+print(f"It took you {number_try} guesses.")
