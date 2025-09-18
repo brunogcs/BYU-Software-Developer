@@ -1,4 +1,4 @@
-from waterflow import water_column_height, pressure_gain_from_water_height, pressure_loss_from_pipe
+from waterflow import water_column_height, pressure_gain_from_water_height, pressure_loss_from_pipe, pressure_loss_from_fittings, reynolds_number, pressure_loss_from_pipe_reduction
 from pytest import approx
 import pytest
 
@@ -114,6 +114,102 @@ def test_pressure_loss_from_pipe():
     result = pressure_loss_from_pipe(diameter, length, friction, velocity)
     assert result == pytest.approx(expected_loss, abs=0.001)
 
+def test_pressure_loss_from_fittings():
+    # Test case 1
+    velocity = 0.00
+    quantity = 3
+    expected_loss = 0.000
+    result = pressure_loss_from_fittings(velocity, quantity)
+    assert result == pytest.approx(expected_loss, abs=0.001)
+    # Test case 2
+    velocity = 1.65
+    quantity = 0
+    expected_loss = 0.000
+    result = pressure_loss_from_fittings(velocity, quantity)
+    assert result == pytest.approx(expected_loss, abs=0.001)
+    
+    # Test case 3
+    velocity = 1.65
+    quantity = 2
+    expected_loss = -0.109
+    result = pressure_loss_from_fittings(velocity, quantity)
+
+    # Test case 4
+    velocity = 1.75
+    quantity = 2
+    expected_loss = -0.122
+    result = pressure_loss_from_fittings(velocity, quantity)
+
+    # Test case 5
+    velocity = 1.75
+    quantity = 5
+    expected_loss = -0.306
+    result = pressure_loss_from_fittings(velocity, quantity)
+
+def test_reynolds_number():
+    # Test case 1
+    diameter = 0.048692
+    velocity = 0.00
+    expected_reynolds_number = 0
+    result = reynolds_number(diameter, velocity)
+    assert result == pytest.approx(expected_reynolds_number, abs=1)
+    
+    # Test case 2
+    diameter = 0.048692
+    velocity = 1.65
+    expected_reynolds_number = 80069
+    result = reynolds_number(diameter, velocity)
+    assert result == pytest.approx(expected_reynolds_number, abs=1)
+    
+    # Test case 3
+    diameter = 0.048692
+    velocity = 1.75
+    expected_reynolds_number = 84922
+    result = reynolds_number(diameter, velocity)
+    assert result == pytest.approx(expected_reynolds_number, abs=1)
+    
+    # Test case 4  
+    diameter = 0.286870
+    velocity = 1.65
+    expected_reynolds_number = 471729
+    result = reynolds_number(diameter, velocity)
+    assert result == pytest.approx(expected_reynolds_number, abs=1)
+
+    # Test case 5
+    diameter = 0.286870
+    velocity = 1.75
+    expected_reynolds_number = 500318
+    result = reynolds_number(diameter, velocity)
+    assert result == pytest.approx(expected_reynolds_number, abs=1)
+
+def test_pressure_loss_from_pipe_reduction():
+    # Test case 1
+    diameter = 0.28687
+    velocity = 0.00
+    reynolds_number = 1
+    smaller_diameter = 0.048692
+    expected_loss = 0.000
+    result = pressure_loss_from_pipe_reduction(diameter, velocity, reynolds_number, smaller_diameter)
+    assert result == pytest.approx(expected_loss, abs=0.001)
+    
+    # Test case 2
+    diameter = 0.28687
+    velocity = 1.65
+    reynolds_number = 471729
+    smaller_diameter = 0.048692
+    expected_loss = -163.744    
+    result = pressure_loss_from_pipe_reduction(diameter, velocity, reynolds_number, smaller_diameter)
+    assert result == pytest.approx(expected_loss, abs=0.001)
+    
+    # Test case 3
+    diameter = 0.28687
+    velocity = 1.75
+    reynolds_number = 500318
+    smaller_diameter = 0.048692
+    expected_loss = -184.182
+    result = pressure_loss_from_pipe_reduction(diameter, velocity, reynolds_number, smaller_diameter)
+    assert result == pytest.approx(expected_loss, abs=0.001)
+    
 # Call the main function that is part of pytest so that the
 # computer will execute the test functions in this file.
 pytest.main(["-v", "--tb=line", "-rN", __file__])

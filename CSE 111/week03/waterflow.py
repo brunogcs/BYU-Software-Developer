@@ -59,13 +59,28 @@ def reynolds_number(hydraulic_diameter, fluid_velocity):
     R = (rho * hydraulic_diameter * fluid_velocity) / mu
     return R
 
+#def pressure_loss_from_pipe_reduction(larger_diameter, fluid_velocity, reynolds_number, smaller_diameter):
+#    rho = 998.2  # densidade da água
+#    # Cálculo de k
+#    k = 0.1 + (50 / reynolds_number) * ((larger_diameter / smaller_diameter) ** 4 - 1)
+#    # Cálculo da perda de pressão
+#    P = -(k * rho * (fluid_velocity ** 2)) / 2000
+#    return P
+
 def pressure_loss_from_pipe_reduction(larger_diameter, fluid_velocity, reynolds_number, smaller_diameter):
-    rho = 998.2  # densidade da água
-    # Cálculo de k
-    k = 0.1 + (50 / reynolds_number) * ((larger_diameter / smaller_diameter) ** 4 - 1)
-    # Cálculo da perda de pressão
-    P = -(k * rho * (fluid_velocity ** 2)) / 2000
-    return P
+    # Parâmetros
+    rho = 998.2  # kg/m^3 (água)
+    D = larger_diameter
+    d = smaller_diameter
+    R = reynolds_number
+    v = fluid_velocity
+
+    # k conforme a imagem: (0.1 + 50/R) * ((D/d)^4 - 1)
+    k = (0.1 + 50.0 / R) * ((D / d)**4 - 1.0)
+
+    # P em kPa: -k * rho * v^2 / 2000
+    P_kPa = -(k * rho * v**2) / 2000.0
+    return P_kPa
 
 if __name__ == "__main__":
     main()
