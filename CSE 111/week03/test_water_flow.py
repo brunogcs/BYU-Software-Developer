@@ -1,4 +1,5 @@
-from waterflow import water_column_height, pressure_gain_from_water_height, pressure_loss_from_pipe, pressure_loss_from_fittings, reynolds_number, pressure_loss_from_pipe_reduction
+from waterflow import water_column_height, pressure_gain_from_water_height, pressure_loss_from_pipe, pressure_loss_from_fittings
+from waterflow import reynolds_number, pressure_loss_from_pipe_reduction, kpa_to_psi
 from pytest import approx
 import pytest
 
@@ -133,18 +134,21 @@ def test_pressure_loss_from_fittings():
     quantity = 2
     expected_loss = -0.109
     result = pressure_loss_from_fittings(velocity, quantity)
+    assert result == pytest.approx(expected_loss, abs=0.001)
 
     # Test case 4
     velocity = 1.75
     quantity = 2
     expected_loss = -0.122
     result = pressure_loss_from_fittings(velocity, quantity)
+    assert result == pytest.approx(expected_loss, abs=0.001)
 
     # Test case 5
     velocity = 1.75
     quantity = 5
     expected_loss = -0.306
     result = pressure_loss_from_fittings(velocity, quantity)
+    assert result == pytest.approx(expected_loss, abs=0.001)
 
 def test_reynolds_number():
     # Test case 1
@@ -209,6 +213,26 @@ def test_pressure_loss_from_pipe_reduction():
     expected_loss = -184.182
     result = pressure_loss_from_pipe_reduction(diameter, velocity, reynolds_number, smaller_diameter)
     assert result == pytest.approx(expected_loss, abs=0.001)
+
+def test_kpa_to_psi():
+    # Test case 1:
+    kpa = 0
+    result = kpa_to_psi(kpa)
+    expected_result = 0.0
+    assert result == pytest.approx(expected_result, abs=0.001)
+
+    # Test case 2:
+    kpa = 1
+    result = kpa_to_psi(kpa)
+    expected_result = 0.145
+    assert result == pytest.approx(expected_result, abs=0.001)
+
+    # Test case 3:
+    kpa = 101.325
+    result = kpa_to_psi(kpa)
+    expected_result = 14.696
+    assert result == pytest.approx(expected_result, abs=0.001)
+
     
 # Call the main function that is part of pytest so that the
 # computer will execute the test functions in this file.
