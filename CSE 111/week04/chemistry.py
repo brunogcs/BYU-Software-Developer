@@ -1,9 +1,10 @@
+'''
+Creativity Challenge: Show all the elements in the chemical formula
+'''
+
+from formula import parse_formula
+
 def make_periodic_table():
-    '''
-    Returns a dictionary object which contains all of the elements of the periodic table.
-    For each element the dictionary key should be the element's symbol.
-    The value contains a list where the first item in the list is the element's name and the second item is the atomic mass.
-    '''
     elements = {
     "Ac": ["Actinium", 227],
     "Ag": ["Silver", 107.8682],
@@ -103,28 +104,45 @@ def make_periodic_table():
     return elements
 
 # Compute and display the molar mass.
-def compute_molar_mass(input_formula):   
-    molar_mass = 0.0
-    return molar_mass
+def compute_molar_mass(symbol_quantity_list, periodic_table_dict):
+    total_mass = 0.0
+    for symbol, quantity in symbol_quantity_list:
+        element_atomic_mass = periodic_table_dict[symbol][1]
+        total_mass += element_atomic_mass * quantity
+
+    return total_mass
+    
 
 #Compute and display the number of moles.
 def compute_number_moles(sample_mass, molar_mass):
-    number_of_moles = 0.0
+    number_of_moles = sample_mass / molar_mass
     return number_of_moles
 
 def main():
-    print(make_periodic_table())
+    # Call make_periodic_table function and store returned dictionary in variable.
+    periodic_table_dict = make_periodic_table()
+    #print(periodic_table_dict)
 
-    '''
-    # Ask the user for a chemical formula.
+    # Ask the user for a chemical formula and the amount of the compound in grams(sample_mass)
     input_formula = input("Enter a chemical formula: ")
+    sample_mass = float(input("Enter the mass of the sample in grams: "))    
 
-    # Ask the user for the amount of the compound in grams (this is the sample_mass).
-    sample_mass = float(input("Enter the mass of the sample in grams: "))
+    # Call parse_formula to get element list
+    element_list = parse_formula(input_formula, periodic_table_dict)
 
-    molar_mass =compute_molar_mass(input_formula)
-    compute_number_moles(sample_mass, molar_mass)
-    '''
+    # Elements in the formula
+    print("\nElements in the formula:")
+    for symbol, quantity in element_list:
+        name = periodic_table_dict[symbol][0]
+        print(f"{name} ({symbol}): {quantity}")
+
+    # Call compute_molar_mass to calculate the molar mass.
+    molar_mass = compute_molar_mass(element_list, periodic_table_dict)
+    print(f"\nMolar mass: {molar_mass:.2f}")
+
+    # Calculate Number of moles in the sample.
+    number_of_moles = compute_number_moles(sample_mass, molar_mass)
+    print(f"Number of moles: {number_of_moles:.2f}")
 
 if __name__ == "__main__":
     main()
