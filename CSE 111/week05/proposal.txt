@@ -1,0 +1,47 @@
+CSE 111 Proposal for a Student Chosen Program
+
+    (This is a proposal. All proposals are written with our best
+    knowledge at the beginning of a project. As we progress from the
+    beginning to the end of a project, we gain more knowledge, and we
+    change some of our proposed ideas. This is part of completing any
+    project and is fine.  However, we still must write a proposal so
+    that our teachers or supervisors know what we intend to do. Please
+    answer each of the following questions to the best of your
+    knowledge.)
+
+1. What is the title of your program?
+
+Library Data Analysis Tool
+
+2. What real-world problem will your program address or help to solve?
+
+The program helps library administrators analyze user behavior and book circulation patterns. 
+It provides insights such as the number of books per author, users with overdue books, and name-based user filtering. 
+This can improve decision making regarding inventory, user management, and service optimization.
+
+3. What will you learn from developing this program?
+
+* How to structure a Python program using reusable functions
+* Interact with a SQLite database
+* Generate realistic test data using Python libraries
+* Validate function behavior using automated tests with pytest.
+* Improve my understanding of data analysis with pandas.
+
+4. What Python modules will your program use?
+
+sqlite3, pandas, random, faker, pytest, datetime
+
+5. List the names of functions you will need?
+
+execute_sql
+insert_data_sql
+consult_table_book
+qtd_book_author
+user_by_letter
+user_suspended
+
+6. List the names of the test functions you will write.
+
+test_qtd_book_author()
+test_user_by_letter()
+test_user_suspended()
